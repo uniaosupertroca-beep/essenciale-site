@@ -25,7 +25,7 @@ const menu = interna
 
 <header class:list={["topo", { interna }]}>
   <div class="envolve barra">
-    <a class="inicio" href={interna ? "/" : "#conteudo"} aria-label="Essenciale Estética e Cosméticos, início da página"><Marca tamanho={28} /></a>
+    <a class="inicio" href={interna ? "/" : "#conteudo"} aria-label="Essenciale Estética e Cosméticos, início da página"><Marca tamanho={19} /></a>
     <nav aria-label="Seções">
       <ul>
         {menu.map((item) => <li><a href={item.href}>{item.texto}</a></li>)}
@@ -58,6 +58,10 @@ const menu = interna
   .inicio {
     text-decoration: none;
     flex: none;
+    color: var(--malva);
+  }
+  .interna .inicio {
+    color: var(--claro);
   }
   nav {
     display: none;
@@ -111,7 +115,16 @@ const menu = interna
       display: block;
     }
   }
-  @media (max-width: 380px) {
+  /* No celular, o logo encolhe para caber ao lado do botão. */
+  @media (max-width: 440px) {
+    .inicio :global(.marca) {
+      --t: 15px !important;
+    }
+  }
+  @media (max-width: 360px) {
+    .inicio :global(.marca) {
+      --t: 12.5px !important;
+    }
     .agendar {
       padding: 0 14px;
     }

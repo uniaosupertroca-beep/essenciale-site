@@ -12,10 +12,12 @@ html,body{width:1200px;height:630px}
 body{font-family:Jost,sans-serif;background:#fbf6f2;color:#2a171c;position:relative;overflow:hidden}
 .luz{position:absolute;inset:-10%;background:radial-gradient(38% 50% at 86% 40%,rgba(201,154,146,.45),transparent 70%),radial-gradient(36% 40% at 0% 100%,rgba(201,154,146,.22),transparent 70%),linear-gradient(180deg,#fbf6f2,#f4e8e2)}
 .conteudo{position:absolute;left:84px;top:78px;width:690px}
-.marca{display:inline-grid;justify-items:center;line-height:1}
-.marca b{font-family:Cormorant,serif;font-size:46px;font-weight:500;letter-spacing:.04em}
-.marca small{margin-top:8px;font-size:13px;font-weight:500;letter-spacing:.32em;margin-right:-.32em;text-transform:uppercase;opacity:.8}
-h1{margin-top:60px;font-family:Cormorant,serif;font-size:76px;line-height:.98;font-weight:400;letter-spacing:-.01em}
+.marca{display:inline-grid;justify-items:center;line-height:1;color:#8d5f6a;padding:16px 22px 0;border:1.5px solid currentColor;border-bottom:0}
+.marca b{font-family:Cormorant,serif;font-size:32px;font-weight:500;letter-spacing:.32em;margin-right:-.32em}
+.marca span{align-self:stretch;display:flex;align-items:center;gap:11px;margin:10px -22px 0;transform:translateY(50%)}
+.marca span::before,.marca span::after{content:"";flex:1;height:1.5px;background:currentColor}
+.marca small{font-size:12px;letter-spacing:.14em}
+h1{margin-top:64px;font-family:Cormorant,serif;font-size:76px;line-height:.98;font-weight:400;letter-spacing:-.01em}
 h1 em{display:block;font-weight:500;color:#8a4b52}
 p{margin-top:28px;font-size:24px;font-weight:300;color:#6a5458;letter-spacing:.02em}
 .arco{position:absolute;right:84px;top:70px;width:300px;height:420px;border-radius:999px 999px 18px 18px;overflow:hidden;background:radial-gradient(60% 50% at 50% 30%,rgba(201,154,146,.5),transparent 75%),radial-gradient(80% 60% at 50% 100%,#4e2e35,transparent 80%),#2a171c;display:grid;place-items:center}
@@ -28,7 +30,7 @@ p{margin-top:28px;font-size:24px;font-weight:300;color:#6a5458;letter-spacing:.0
 <div class="luz"></div>
 <div class="arco"><span>E</span><small>Essenciale</small></div>
 <div class="conteudo">
-  <div class="marca"><b>Essenciale</b><small>Estética e Cosméticos</small></div>
+  <div class="marca"><b>ESSENCIALE</b><span><small>estética &amp; cosméticos</small></span></div>
   <h1>Ciência, técnica e arte <em>a favor da sua essência.</em></h1>
   <p>Balneário Camboriú (SC) · Rosto e corpo, sem cirurgia</p>
 </div>

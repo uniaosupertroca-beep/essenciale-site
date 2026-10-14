@@ -17,10 +17,10 @@ O que o Instagram não informa fica marcado no site como "a preencher", e o buil
 
 ## Identidade
 
-- **Cores:** ameixa (`#2a171c`), rosé (`#c99a92`), nude (`#f4e8e2`) e pérola (`#fbf6f2`), com detalhes em dourado.
+- **Cores:** o malva do logo (`#8d5f6a`), ameixa (`#2a171c`), rosé (`#c99a92`), nude (`#f4e8e2`) e pérola (`#fbf6f2`), com detalhes em dourado.
 - **Fontes:** Cormorant Garamond nos títulos (com uma parte em itálico rosé) e Jost no texto, servidas pelo próprio site.
-- **Marca:** enquanto o logo oficial não chega, o nome aparece escrito em serifa (`src/components/Marca.astro`). O monograma "E" com brilho é o ícone da aba.
-- **Fotos:** a abertura mostra um arco com o monograma. Com uma foto em `src/assets/fotos/abertura.jpg`, o arco passa a mostrar a foto sozinho.
+- **Logo:** redesenhado em HTML e CSS a partir do perfil do Instagram (`src/components/Marca.astro`): "ESSENCIALE" em serifa espaçada, numa moldura fina, com "estética & cosméticos" no traço de baixo. Fica nítido em qualquer tela e muda de cor conforme o fundo. O monograma "E" com brilho, em malva, é o ícone da aba.
+- **Fotos:** a abertura mostra um arco com o monograma. Com uma foto em `src/assets/fotos/abertura.jpg`, o arco passa a mostrar a foto sozinho. As fotos do feed não foram usadas: são artes com texto, antes e depois ou fotos de pacientes, que dependem de autorização.
 
 ## Regras de publicidade
 
@@ -44,7 +44,7 @@ Tudo fica em `src/data/clinica.ts`. Falta a clínica mandar:
 - [ ] endereço completo (rua, número, bairro e CEP)
 - [ ] CNPJ
 - [ ] horários de atendimento
-- [ ] logo oficial e fotos (ambiente, equipe)
+- [ ] fotos do ambiente e da equipe (com autorização de quem aparece)
 
 Os tratamentos ficam em `src/data/tratamentos.ts`: um item novo vira uma página nova, com cartão na lista e entrada no sitemap.
 
