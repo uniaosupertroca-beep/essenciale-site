@@ -1,0 +1,119 @@
+---
+import { linkWhatsapp } from "../data/clinica.ts";
+import Icone from "./Icone.astro";
+import Marca from "./Marca.astro";
+
+interface Props {
+  /** Nas páginas internas o topo fica sobre a abertura escura e os links voltam para a home. */
+  interna?: boolean;
+}
+const { interna = false } = Astro.props;
+
+const menu = interna
+  ? [
+      { href: "/", texto: "Início" },
+      { href: "/tratamentos/", texto: "Tratamentos" },
+      { href: "/#contato", texto: "Contato" },
+    ]
+  : [
+      { href: "#padrao-ouro", texto: "Rosto" },
+      { href: "#corpo", texto: "Corpo" },
+      { href: "#duvidas", texto: "Dúvidas" },
+      { href: "#contato", texto: "Contato" },
+    ];
+---
+
+<header class:list={["topo", { interna }]}>
+  <div class="envolve barra">
+    <a class="inicio" href={interna ? "/" : "#conteudo"} aria-label="Essenciale Estética e Cosméticos, início da página"><Marca tamanho={28} /></a>
+    <nav aria-label="Seções">
+      <ul>
+        {menu.map((item) => <li><a href={item.href}>{item.texto}</a></li>)}
+      </ul>
+    </nav>
+    <a class:list={["botao agendar", interna ? "rose" : "ameixa"]} href={linkWhatsapp()} target="_blank" rel="noopener">
+      <Icone nome="whatsapp" tamanho={18} />
+      Agendar
+    </a>
+  </div>
+</header>
+
+<style>
+  .topo {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 20;
+    color: var(--tinta);
+  }
+  .interna {
+    color: var(--claro);
+  }
+  .barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding-block: 22px;
+  }
+  .inicio {
+    text-decoration: none;
+    flex: none;
+  }
+  nav {
+    display: none;
+  }
+  nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 36px;
+  }
+  nav a {
+    position: relative;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tinta-2);
+    transition: color 0.2s;
+  }
+  .interna nav a {
+    color: var(--claro-2);
+  }
+  nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 1px;
+    background: currentColor;
+    scale: 0 1;
+    transition: scale 0.25s;
+  }
+  nav a:hover {
+    color: var(--rose-texto);
+  }
+  .interna nav a:hover {
+    color: var(--claro);
+  }
+  nav a:hover::after {
+    scale: 1 1;
+  }
+  .agendar {
+    min-height: 44px;
+    padding: 0 20px;
+    font-size: 14px;
+  }
+  @media (min-width: 980px) {
+    nav {
+      display: block;
+    }
+  }
+  @media (max-width: 380px) {
+    .agendar {
+      padding: 0 14px;
+    }
+  }
+</style>

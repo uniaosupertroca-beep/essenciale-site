@@ -1,0 +1,38 @@
+---
+import Abertura from "../components/Abertura.astro";
+import Chamada from "../components/Chamada.astro";
+import Contato from "../components/Contato.astro";
+import Corpo from "../components/Corpo.astro";
+import Duvidas from "../components/Duvidas.astro";
+import Essencia from "../components/Essencia.astro";
+import Etapas from "../components/Etapas.astro";
+import Faixa from "../components/Faixa.astro";
+import PadraoOuro from "../components/PadraoOuro.astro";
+import ParaVoce from "../components/ParaVoce.astro";
+import Rodape from "../components/Rodape.astro";
+import Topo from "../components/Topo.astro";
+import ZapFlutuante from "../components/ZapFlutuante.astro";
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  titulo="Essenciale | Clínica de estética em Balneário Camboriú (SC)"
+  descricao="Protocolos personalizados para rosto e corpo, sem cirurgia: Pele de Rainha, harmonização facial, lifting sem cirurgia, gordura localizada, definição muscular e contorno glúteo. Agende sua avaliação pelo WhatsApp."
+  comDadosEstruturados
+>
+  <Topo />
+  <main id="conteudo">
+    <Abertura />
+    <Faixa />
+    <Essencia />
+    <PadraoOuro />
+    <Corpo />
+    <ParaVoce />
+    <Etapas chapeu="Como funciona" titulo="Do primeiro contato" destaque="ao acompanhamento." />
+    <Duvidas />
+    <Contato />
+    <Chamada />
+    <ZapFlutuante />
+  </main>
+  <Rodape />
+</Base>

@@ -1,0 +1,12 @@
+---
+// "E" de traço fino com um brilho, o mesmo desenho do ícone da aba (public/favicon.svg).
+interface Props {
+  tamanho?: number;
+}
+const { tamanho = 18 } = Astro.props;
+---
+
+<svg width={tamanho} height={tamanho} viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <path d="M10 7v18M10 7h9M10 16h7M10 25h10" />
+  <path d="M24.5 4.5c.3 2 1.4 3.1 3.4 3.4-2 .3-3.1 1.4-3.4 3.4-.3-2-1.4-3.1-3.4-3.4 2-.3 3.1-1.4 3.4-3.4z" stroke-width="1.2" />
+</svg>

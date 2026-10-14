@@ -1,0 +1,88 @@
+---
+// Para quem são os tratamentos: frases no tom da clínica, sem expor ninguém e sem prometer resultado.
+import Icone from "./Icone.astro";
+
+const itens = [
+  "Quer se sentir bem com o próprio corpo, no biquíni e na alfaiataria.",
+  "Sente que o treino e a dieta já não alcançam algumas regiões.",
+  "Percebe a pele mais flácida, opaca ou cansada do que gostaria.",
+  "Quer cuidar da aparência sem cirurgia e sem parar a rotina.",
+  "Procura um plano pensado para você, e não um pacote pronto.",
+  "Quer estar nas fotos e viver a sua idade com confiança.",
+];
+---
+
+<section class="secao" aria-labelledby="t-para-voce">
+  <div class="envolve grade">
+    <div class="lado">
+      <p class="chapeu">Para você</p>
+      <h2 class="titulo" id="t-para-voce">Os protocolos da Essenciale <em>são para você que…</em></h2>
+      <blockquote>
+        <p>“Quando uma mulher se ama, tudo muda ao seu redor.”</p>
+      </blockquote>
+    </div>
+    <ul class="lista">
+      {
+        itens.map((item) => (
+          <li>
+            <span class="visto">
+              <Icone nome="certo" tamanho={16} traco={2} />
+            </span>
+            {item}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .grade {
+    display: grid;
+    gap: 48px;
+    align-items: start;
+  }
+  @media (min-width: 960px) {
+    .grade {
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 88px;
+    }
+  }
+  blockquote {
+    margin-top: 40px;
+    padding-left: 22px;
+    border-left: 1px solid var(--rose);
+    font-family: var(--serifa);
+    font-style: italic;
+    font-size: clamp(24px, 2.6vw, 30px);
+    line-height: 1.3;
+    color: var(--rose-texto);
+  }
+  .lista {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+  .lista li {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 20px 22px;
+    background: var(--branco);
+    border: 1px solid var(--linha);
+    border-radius: 14px;
+    font-size: 17px;
+    line-height: 1.45;
+  }
+  .visto {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--ameixa);
+    color: var(--rose-claro);
+  }
+</style>

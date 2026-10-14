@@ -1,0 +1,134 @@
+---
+// Manifesto da clínica, com as frases que ela mesma usa no Instagram.
+import { clinica } from "../data/clinica.ts";
+import type { NomeIcone } from "../data/icones.ts";
+import Icone from "./Icone.astro";
+
+const valores: { icone: NomeIcone; titulo: string; texto: string }[] = [
+  {
+    icone: "prancheta",
+    titulo: "Método personalizado",
+    texto: "Nenhum pacote pronto: cada protocolo nasce de uma avaliação do seu corpo, da sua rotina e do que você deseja.",
+  },
+  {
+    icone: "camadas",
+    titulo: "Técnicas que se somam",
+    texto: "Tecnologia, técnica e cuidado com a pele trabalhando juntos, camada por camada.",
+  },
+  {
+    icone: "coracao",
+    titulo: "A sua identidade em primeiro lugar",
+    texto: "Respeito à sua anatomia, à sua expressão e ao seu jeito. A ideia é valorizar, não transformar.",
+  },
+];
+---
+
+<section class="secao branca" id="essencia" aria-labelledby="t-essencia">
+  <div class="envolve grade">
+    <div class="anos" aria-hidden="true">
+      <span class="numero">{clinica.anos}</span>
+      <span class="legenda">anos de estética</span>
+    </div>
+    <div>
+      <p class="chapeu">A Essenciale</p>
+      <h2 class="titulo" id="t-essencia">{clinica.anos} anos elevando a beleza <em>com ciência, técnica e naturalidade.</em></h2>
+      <p class="abre">
+        Rejuvenescer não é esticar a pele nem mudar quem você é. Na Essenciale, cada cuidado é planejado para revelar a sua melhor versão, com
+        elegância e respeito à sua essência.
+      </p>
+    </div>
+  </div>
+  <div class="envolve">
+    <ul class="valores">
+      {
+        valores.map((v) => (
+          <li>
+            <span class="icone">
+              <Icone nome={v.icone} tamanho={24} traco={1.4} />
+            </span>
+            <h3>{v.titulo}</h3>
+            <p>{v.texto}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .grade {
+    display: grid;
+    gap: 32px;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .grade {
+      grid-template-columns: auto 1fr;
+      gap: 88px;
+    }
+  }
+  .anos {
+    display: grid;
+    justify-items: start;
+  }
+  .numero {
+    font-family: var(--serifa);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(150px, 20vw, 260px);
+    line-height: 0.82;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--rose-texto);
+    background: linear-gradient(180deg, color-mix(in oklab, var(--rose) 35%, transparent), transparent 85%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  .legenda {
+    margin-top: 14px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--rose-texto);
+  }
+  .valores {
+    list-style: none;
+    padding: 0;
+    margin-top: clamp(56px, 7vw, 88px);
+    display: grid;
+    gap: 16px;
+  }
+  @media (min-width: 860px) {
+    .valores {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+  .valores li {
+    padding: 30px 28px;
+    border: 1px solid var(--linha);
+    border-radius: var(--raio);
+    background: var(--perola);
+  }
+  .icone {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1px solid color-mix(in oklab, var(--rose-texto) 35%, transparent);
+    color: var(--rose-texto);
+    background: var(--branco);
+  }
+  h3 {
+    margin-top: 20px;
+    font-family: var(--serifa);
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.15;
+  }
+  .valores p {
+    margin-top: 10px;
+    color: var(--tinta-2);
+    font-size: 16px;
+  }
+</style>

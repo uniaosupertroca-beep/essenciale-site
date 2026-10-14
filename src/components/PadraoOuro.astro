@@ -1,0 +1,165 @@
+---
+// O "Padrão Ouro do Rejuvenescimento" que a clínica divulga: três camadas, cada uma com a sua página.
+import { porSlug } from "../data/tratamentos.ts";
+import Icone from "./Icone.astro";
+
+const camadas = [
+  { t: porSlug("pele-de-rainha"), titulo: "Qualidade da pele", texto: "Luminosidade, hidratação, textura e elasticidade: a base de tudo." },
+  { t: porSlug("lifting-sem-cirurgia"), titulo: "Estrutura e sustentação", texto: "Firmeza dos tecidos e definição do contorno, sem cortes." },
+  { t: porSlug("harmonizacao-facial"), titulo: "Contornos e proporções", texto: "Maçãs, lábios e mandíbula em equilíbrio, respeitando os seus traços." },
+];
+---
+
+<section class="secao escura padrao" id="padrao-ouro" aria-labelledby="t-padrao">
+  <div class="luz" aria-hidden="true"></div>
+  <div class="envolve">
+    <div class="cabeca">
+      <p class="chapeu">Rosto · Padrão Ouro do Rejuvenescimento</p>
+      <h2 class="titulo" id="t-padrao">A juventude da face <em>em três camadas.</em></h2>
+      <p class="abre">
+        O tempo não muda só a pele: muda a sustentação dos tecidos e os contornos do rosto. Por isso o rejuvenescimento da Essenciale integra três
+        cuidados, e o diferencial está em tratá-los juntos.
+      </p>
+    </div>
+    <ol class="camadas">
+      {
+        camadas.map(({ t, titulo, texto }, i) => (
+          <li>
+            <a href={`/tratamentos/${t.slug}/`}>
+              <span class="numero" aria-hidden="true">
+                {i + 1}
+              </span>
+              <span class="icone">
+                <Icone nome={t.icone} tamanho={26} traco={1.3} />
+              </span>
+              <span class="camada">{titulo}</span>
+              <h3>{t.nome}</h3>
+              <p>{texto}</p>
+              <span class="mais">
+                Conhecer
+                <Icone nome="seta" tamanho={16} />
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .padrao {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+  .luz {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(40% 50% at 90% 10%, color-mix(in oklab, var(--rose) 22%, transparent), transparent 70%),
+      radial-gradient(40% 50% at 0% 100%, color-mix(in oklab, var(--rose) 12%, transparent), transparent 70%);
+  }
+  .cabeca {
+    max-width: 760px;
+  }
+  .camadas {
+    list-style: none;
+    padding: 0;
+    margin-top: clamp(56px, 7vw, 80px);
+    display: grid;
+    gap: 16px;
+  }
+  @media (min-width: 900px) {
+    .camadas {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+  }
+  .camadas li {
+    display: grid;
+  }
+  .camadas a {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 34px 30px 30px;
+    border: 1px solid color-mix(in oklab, var(--rose) 28%, transparent);
+    border-radius: var(--raio);
+    background: linear-gradient(180deg, color-mix(in oklab, var(--ameixa-2) 90%, transparent), var(--ameixa));
+    color: var(--claro);
+    text-decoration: none;
+    transition:
+      border-color 0.25s,
+      translate 0.25s;
+  }
+  .camadas a:hover {
+    border-color: var(--rose);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .camadas a:hover {
+      translate: 0 -3px;
+    }
+  }
+  .numero {
+    position: absolute;
+    right: 18px;
+    top: -18px;
+    font-family: var(--serifa);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 150px;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px color-mix(in oklab, var(--rose) 40%, transparent);
+  }
+  .icone {
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: 1px solid color-mix(in oklab, var(--rose) 50%, transparent);
+    color: var(--rose);
+    background: var(--ameixa);
+  }
+  .camada {
+    margin-top: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--dourado);
+  }
+  h3 {
+    font-family: var(--serifa);
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+  p {
+    color: var(--claro-2);
+    font-size: 16px;
+  }
+  .mais {
+    margin-top: auto;
+    padding-top: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--rose);
+  }
+  .mais :global(svg) {
+    transition: translate 0.25s;
+  }
+  .camadas a:hover .mais :global(svg) {
+    translate: 4px 0;
+  }
+</style>
