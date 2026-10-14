@@ -1,0 +1,32 @@
+# Temporário: baixa o logo e fotos do Instagram da clínica (fotos.txt) e salva neste ramo.
+# O Instagram não é acessível do ambiente de desenvolvimento; o GitHub tem acesso livre.
+name: Baixar fotos do Instagram
+
+on:
+  push:
+    branches: [fotos-instagram]
+    paths: [fotos.txt]
+
+permissions:
+  contents: write
+
+jobs:
+  baixar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Baixar
+        run: |
+          mkdir -p baixadas
+          while read -r nome url; do
+            [ -z "$nome" ] && continue
+            if curl -sSfL -m 60 -A "Mozilla/5.0" -o "baixadas/$nome" "$url"; then echo "ok $nome"; else echo "::warning::falhou $nome"; rm -f "baixadas/$nome"; fi
+          done < fotos.txt
+          ls -la baixadas
+      - name: Salvar no ramo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add baixadas
+          git commit -m "Fotos baixadas do Instagram (@essenciale)" || echo "nada novo"
+          git push
