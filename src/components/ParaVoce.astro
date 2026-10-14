@@ -1,5 +1,6 @@
 ---
 // Para quem são os tratamentos: frases no tom da clínica, sem expor ninguém e sem prometer resultado.
+import { clinica } from "../data/clinica.ts";
 import Icone from "./Icone.astro";
 
 const itens = [
@@ -17,9 +18,12 @@ const itens = [
     <div class="lado">
       <p class="chapeu">Para você</p>
       <h2 class="titulo" id="t-para-voce">Os protocolos da Essenciale <em>são para você que…</em></h2>
-      <blockquote>
-        <p>“Quando uma mulher se ama, tudo muda ao seu redor.”</p>
-      </blockquote>
+      <figure class="citacao">
+        <blockquote>
+          <p>“Quando uma mulher se ama, tudo muda ao seu redor.”</p>
+        </blockquote>
+        <figcaption>{clinica.idealizadora.nome}</figcaption>
+      </figure>
     </div>
     <ul class="lista">
       {
@@ -48,10 +52,18 @@ const itens = [
       gap: 88px;
     }
   }
-  blockquote {
+  .citacao {
     margin-top: 40px;
     padding-left: 22px;
     border-left: 1px solid var(--rose);
+  }
+  figcaption {
+    margin-top: 12px;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    color: var(--tinta-2);
+  }
+  blockquote {
     font-family: var(--serifa);
     font-style: italic;
     font-size: clamp(24px, 2.6vw, 30px);

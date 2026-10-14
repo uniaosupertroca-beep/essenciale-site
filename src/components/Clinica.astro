@@ -1,0 +1,169 @@
+---
+// Galeria do ambiente, com as fotos que a clínica publica no próprio site.
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import { clinica, linkRotaGoogle } from "../data/clinica.ts";
+import Icone from "./Icone.astro";
+
+const fotos = import.meta.glob<{ default: ImageMetadata }>("../assets/fotos/clinica-*.jpg", { eager: true });
+const foto = (nome: string) => {
+  const f = fotos[`../assets/fotos/clinica-${nome}.jpg`]?.default;
+  if (!f) throw new Error(`Foto não encontrada: clinica-${nome}.jpg`);
+  return f;
+};
+
+// A ordem segue a grade: a recepção, com o logo na parede, abre a galeria em tamanho maior.
+const galeria = [
+  { nome: "recepcao", legenda: "Recepção", alt: "Recepção da Essenciale, com o logo na parede, mesa de mármore e cadeiras rosadas" },
+  { nome: "sala-de-procedimentos", legenda: "Sala de procedimentos", alt: "Sala de procedimentos com maca, bancada clara e luz embutida" },
+  { nome: "espera", legenda: "Recanto de espera", alt: "Recanto com poltrona branca, tapete azul e parede em tom vinho" },
+  { nome: "consultorio", legenda: "Consultório", alt: "Consultório de avaliação com mesa, cadeiras rosadas e janela ampla" },
+  { nome: "cosmeticos", legenda: "Cosméticos", alt: "Espaço de cosméticos com prateleiras, espelho orgânico e a frase beauty is inside" },
+  { nome: "sala-de-tecnologias", legenda: "Sala de tecnologias", alt: "Sala com maca, poltrona e aparelho de tecnologia estética" },
+  { nome: "lounge", legenda: "Lounge", alt: "Lounge com sofá, poltrona clara, quadro de traço fino e tapete" },
+];
+---
+
+<section class="secao escura clinica" id="clinica" aria-labelledby="t-clinica">
+  <div class="envolve">
+    <div class="cabeca">
+      <div>
+        <p class="chapeu">Nossa clínica</p>
+        <h2 class="titulo" id="t-clinica">Um espaço pensado <em>para você se sentir em casa.</em></h2>
+      </div>
+      <div class="lado">
+        <p class="abre">
+          Madeira clara, luz quente e salas reservadas, na {clinica.rua?.replace(", loja 03", "")}, no {clinica.bairro} de {clinica.cidade}.
+        </p>
+        <div class="acoes">
+          <a class="botao linha" href={linkRotaGoogle()} target="_blank" rel="noopener">
+            <Icone nome="rota" tamanho={17} />
+            Traçar rota
+          </a>
+          <a class="botao linha" href={clinica.googleMaps} target="_blank" rel="noopener">
+            <Icone nome="local" tamanho={17} />
+            Ver no Google Maps
+          </a>
+        </div>
+      </div>
+    </div>
+    <ul class="galeria">
+      {
+        galeria.map((g, i) => (
+          <li class={`g${i + 1}`}>
+            <figure>
+              <Image
+                src={foto(g.nome)}
+                alt={g.alt}
+                widths={i === 0 ? [460, 624] : [320, 624]}
+                sizes={i === 0 ? "(min-width: 900px) 600px, 100vw" : "(min-width: 900px) 300px, 50vw"}
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>{g.legenda}</figcaption>
+            </figure>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .cabeca {
+    display: grid;
+    gap: 8px 72px;
+    align-items: end;
+  }
+  @media (min-width: 960px) {
+    .cabeca {
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+    .lado .abre {
+      margin-top: 0;
+    }
+  }
+  .lado .acoes {
+    margin-top: 24px;
+  }
+
+  /* Mosaico: a recepção grande à esquerda; consultório e lounge em faixas largas. */
+  .galeria {
+    list-style: none;
+    padding: 0;
+    margin-top: clamp(48px, 6vw, 72px);
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: clamp(150px, 38vw, 240px);
+  }
+  .g1 {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .g4,
+  .g7 {
+    grid-column: span 2;
+  }
+  @media (min-width: 900px) {
+    .galeria {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-auto-rows: 230px;
+      grid-template-areas:
+        "a a b c"
+        "a a d d"
+        "e f g g";
+    }
+    .g1 {
+      grid-area: a;
+    }
+    .g2 {
+      grid-area: b;
+    }
+    .g3 {
+      grid-area: c;
+    }
+    .g4 {
+      grid-area: d;
+    }
+    .g5 {
+      grid-area: e;
+    }
+    .g6 {
+      grid-area: f;
+    }
+    .g7 {
+      grid-area: g;
+    }
+  }
+  .galeria li,
+  figure {
+    min-width: 0;
+    height: 100%;
+  }
+  figure {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+  }
+  .g1 figure {
+    border-radius: 999px 999px 14px 14px;
+  }
+  figure :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  figcaption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 36px 16px 12px;
+    background: linear-gradient(180deg, transparent, rgba(42, 23, 28, 0.78));
+    color: var(--claro);
+    font-family: var(--serifa);
+    font-style: italic;
+    font-size: 19px;
+  }
+</style>

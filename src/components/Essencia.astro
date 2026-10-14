@@ -1,8 +1,15 @@
 ---
-// Manifesto da clínica, com as frases que ela mesma usa no Instagram.
+// Quem idealizou a clínica, com o retrato e as frases que a Essenciale usa no site e no Instagram.
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
 import { clinica } from "../data/clinica.ts";
 import type { NomeIcone } from "../data/icones.ts";
 import Icone from "./Icone.astro";
+
+const { idealizadora } = clinica;
+const fotos = import.meta.glob<{ default: ImageMetadata }>("../assets/fotos/*.{jpg,jpeg,png,webp}", { eager: true });
+const retrato = fotos[`../assets/fotos/${idealizadora.foto}`]?.default;
+if (!retrato) throw new Error(`Foto não encontrada em src/assets/fotos/: ${idealizadora.foto}`);
 
 const valores: { icone: NomeIcone; titulo: string; texto: string }[] = [
   {
@@ -25,110 +32,142 @@ const valores: { icone: NomeIcone; titulo: string; texto: string }[] = [
 
 <section class="secao branca" id="essencia" aria-labelledby="t-essencia">
   <div class="envolve grade">
-    <div class="anos" aria-hidden="true">
-      <span class="numero">{clinica.anos}</span>
-      <span class="legenda">anos de estética</span>
-    </div>
-    <div>
-      <p class="chapeu">A Essenciale</p>
-      <h2 class="titulo" id="t-essencia">{clinica.anos} anos elevando a beleza <em>com ciência, técnica e naturalidade.</em></h2>
+    <figure class="retrato">
+      <Image
+        src={retrato}
+        alt={`${idealizadora.nome}, idealizadora da Essenciale, de camisa branca e braços cruzados`}
+        widths={[420, 640, 840]}
+        sizes="(min-width: 960px) 420px, 80vw"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption>Desde {idealizadora.desde}</figcaption>
+    </figure>
+    <div class="texto">
+      <p class="chapeu">Quem idealizou a Essenciale</p>
+      <h2 class="titulo" id="t-essencia">{idealizadora.nome}</h2>
       <p class="abre">
-        Rejuvenescer não é esticar a pele nem mudar quem você é. Na Essenciale, cada cuidado é planejado para revelar a sua melhor versão, com
-        elegância e respeito à sua essência.
+        À frente da Essenciale desde {idealizadora.desde}, a Dra. Cláudia atua com tecnologias e protocolos para o rosto e o corpo, com foco na
+        autoestima feminina e em um atendimento humanizado. Protocolos como o Pele de Rainha e o Bumbum das Estrelas nasceram desse trabalho.
       </p>
+      <p class="lema">Rejuvenescer não é esticar a pele nem mudar quem você é: é revelar a sua melhor versão, com respeito à sua essência.</p>
+      <ul class="valores">
+        {
+          valores.map((v) => (
+            <li>
+              <span class="icone">
+                <Icone nome={v.icone} tamanho={22} traco={1.4} />
+              </span>
+              <div>
+                <h3>{v.titulo}</h3>
+                <p>{v.texto}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
     </div>
-  </div>
-  <div class="envolve">
-    <ul class="valores">
-      {
-        valores.map((v) => (
-          <li>
-            <span class="icone">
-              <Icone nome={v.icone} tamanho={24} traco={1.4} />
-            </span>
-            <h3>{v.titulo}</h3>
-            <p>{v.texto}</p>
-          </li>
-        ))
-      }
-    </ul>
   </div>
 </section>
 
 <style>
   .grade {
     display: grid;
-    gap: 32px;
+    gap: 56px;
     align-items: center;
   }
-  @media (min-width: 900px) {
+  @media (min-width: 960px) {
     .grade {
-      grid-template-columns: auto 1fr;
+      grid-template-columns: 0.85fr 1.15fr;
       gap: 88px;
     }
   }
-  .anos {
+
+  /* Retrato recortado sobre um arco rosé, a mesma forma da abertura. */
+  .retrato {
+    position: relative;
+    justify-self: center;
+    width: min(100%, 420px);
+    aspect-ratio: 4 / 5;
     display: grid;
-    justify-items: start;
+    align-items: end;
+    border-radius: 999px 999px var(--raio) var(--raio);
+    overflow: hidden;
+    background:
+      radial-gradient(70% 55% at 50% 22%, color-mix(in oklab, var(--rose-claro) 80%, transparent), transparent 75%),
+      linear-gradient(180deg, var(--nude), color-mix(in oklab, var(--rose) 55%, var(--nude)));
   }
-  .numero {
+  .retrato::after {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid color-mix(in oklab, var(--branco) 70%, transparent);
+    border-radius: inherit;
+    pointer-events: none;
+  }
+  .retrato :global(img) {
+    width: 92%;
+    height: auto;
+    margin-inline: auto;
+  }
+  figcaption {
+    position: absolute;
+    right: 22px;
+    bottom: 22px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: var(--ameixa);
+    color: var(--rose-claro);
     font-family: var(--serifa);
     font-style: italic;
-    font-weight: 300;
-    font-size: clamp(150px, 20vw, 260px);
-    line-height: 0.82;
-    color: transparent;
-    -webkit-text-stroke: 1px var(--rose-texto);
-    background: linear-gradient(180deg, color-mix(in oklab, var(--rose) 35%, transparent), transparent 85%);
-    -webkit-background-clip: text;
-    background-clip: text;
+    font-size: 19px;
   }
-  .legenda {
-    margin-top: 14px;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
+
+  .lema {
+    margin-top: 32px;
+    padding-left: 22px;
+    border-left: 1px solid var(--rose);
+    font-family: var(--serifa);
+    font-style: italic;
+    font-size: clamp(22px, 2.4vw, 27px);
+    line-height: 1.3;
     color: var(--rose-texto);
+    max-width: 30em;
   }
+
   .valores {
     list-style: none;
     padding: 0;
-    margin-top: clamp(56px, 7vw, 88px);
+    margin-top: 40px;
     display: grid;
-    gap: 16px;
-  }
-  @media (min-width: 860px) {
-    .valores {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+    gap: 22px;
   }
   .valores li {
-    padding: 30px 28px;
-    border: 1px solid var(--linha);
-    border-radius: var(--raio);
-    background: var(--perola);
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
   }
   .icone {
+    flex: none;
     display: grid;
     place-items: center;
-    width: 56px;
-    height: 56px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: 1px solid color-mix(in oklab, var(--rose-texto) 35%, transparent);
     color: var(--rose-texto);
-    background: var(--branco);
+    background: var(--perola);
   }
   h3 {
-    margin-top: 20px;
     font-family: var(--serifa);
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 500;
     line-height: 1.15;
   }
   .valores p {
-    margin-top: 10px;
+    margin-top: 4px;
     color: var(--tinta-2);
     font-size: 16px;
+    max-width: 34em;
   }
 </style>

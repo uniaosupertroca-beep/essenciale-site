@@ -1,6 +1,7 @@
 // Tudo o que é da clínica fica aqui: contatos, endereço, redes e responsável técnico(a).
-// Fonte: o Instagram da clínica (@essenciale), em out/2026. Campo com null ainda não foi
-// informado: o site mostra um espaço marcado "a preencher" e o build lista o que falta.
+// Fontes (out/2026): o Instagram (@essenciale) e o site atual da clínica (essencialeestetica.com.br).
+// Campo com null ainda não foi informado: o site mostra um espaço marcado "a preencher" e o
+// build lista o que falta.
 
 export interface Responsavel {
   /** Nome como deve aparecer no site. */
@@ -20,13 +21,20 @@ export const clinica = {
   endereco: "https://essenciale-estetica.pages.dev",
   /** Anos de estética, como a clínica divulga ("20 anos transformando histórias"). */
   anos: 20,
-  cnpj: null as string | null,
+  /** Essenciale Estetic Center Ltda, no mesmo endereço. */
+  cnpj: "10.904.998/0001-02" as string | null,
   cidade: "Balneário Camboriú",
   uf: "SC",
-  /** Rua e número, ex.: "Rua 1500, 100, sala 2". */
-  rua: null as string | null,
-  bairro: null as string | null,
-  cep: null as string | null,
+  /** Rua e número. O CEP é o do Google Maps (o cadastro do CNPJ traz 88330-503). */
+  rua: "Rua 1542, 25, loja 03" as string | null,
+  bairro: "Centro" as string | null,
+  cep: "88330-622" as string | null,
+  /** Ficha da clínica no Google Maps: rota, fotos e avaliações. */
+  googleMaps: "https://maps.google.com/?cid=14233690009980832611",
+  /** Nota e número de avaliações no Google, conferidos em out/2026. */
+  avaliacoes: { nota: "4,9", total: 75 },
+  /** Quem criou a clínica, como ela se apresenta no site atual. Não é, por si, o(a) responsável técnico(a). */
+  idealizadora: { nome: "Dra. Cláudia Braga", desde: 2007, foto: "claudia-braga.png" },
   /** Ex.: ["Segunda a sexta, das 9h às 19h"]. */
   horarios: null as string[] | null,
   whatsapp: {
@@ -64,7 +72,7 @@ export const temEndereco = () => Boolean(clinica.rua && clinica.cep);
 export const enderecoCompleto = () =>
   temEndereco() ? `${clinica.rua}, ${clinica.bairro ? `${clinica.bairro}, ` : ""}${clinica.cidade} (${clinica.uf}), CEP ${clinica.cep}` : null;
 
-const destino = () => encodeURIComponent(`${clinica.rua}, ${clinica.cidade} - ${clinica.uf}, ${clinica.cep}`);
+const destino = () => encodeURIComponent(`${clinica.rua?.replace(/, loja \d+$/, "")}, ${clinica.cidade} - ${clinica.uf}, ${clinica.cep}`);
 export const linkRotaGoogle = () => `https://www.google.com/maps/dir/?api=1&destination=${destino()}`;
 export const linkRotaWaze = () => `https://waze.com/ul?q=${destino()}&navigate=yes`;
 

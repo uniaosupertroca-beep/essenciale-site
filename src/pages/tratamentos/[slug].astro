@@ -40,6 +40,7 @@ const etapas = t.etapas.map((e) => ({ ...e, icone: iconeDaEtapa(e.titulo, t) }))
       resumo={t.resumo}
       icone={t.icone}
       palavra={t.categoria}
+      foto={t.foto}
     >
       <a class="botao zap" href={linkWhatsapp(mensagem)} target="_blank" rel="noopener">
         <Icone nome="whatsapp" tamanho={20} />

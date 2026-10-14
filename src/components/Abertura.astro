@@ -14,6 +14,7 @@ const selos: { icone: NomeIcone; texto: string }[] = [
   { icone: "brilho", texto: `${clinica.anos} anos de estética` },
   { icone: "prancheta", texto: "Protocolos personalizados" },
   { icone: "escudo", texto: "Sem cirurgia" },
+  { icone: "estrela", texto: `Nota ${clinica.avaliacoes.nota} no Google` },
 ];
 const giro = `Essenciale · ${clinica.anos} anos de estética · ${clinica.cidade} · `;
 ---
@@ -22,7 +23,7 @@ const giro = `Essenciale · ${clinica.anos} anos de estética · ${clinica.cidad
   <div class="brilho" aria-hidden="true"></div>
   <div class="envolve grade">
     <div class="texto">
-      <p class="chapeu">Clínica de estética · {clinica.cidade}</p>
+      <p class="chapeu">Clínica de estética em {clinica.cidade}</p>
       <h1 id="t-abertura">Ciência, técnica e arte <em>a favor da sua essência.</em></h1>
       <p class="apoio">
         Protocolos personalizados para rosto e corpo, sem cirurgia. Tudo começa por uma avaliação para entender você, a sua rotina e o que você
@@ -51,7 +52,14 @@ const giro = `Essenciale · ${clinica.anos} anos de estética · ${clinica.cidad
       {
         foto ? (
           <figure class="arco">
-            <Image src={foto} alt="Ambiente da Essenciale" widths={[460, 720]} sizes="(min-width: 960px) 460px, 90vw" loading="eager" decoding="async" />
+            <Image
+              src={foto}
+              alt="Corredor em arco da Essenciale, com madeira clara e luz quente"
+              widths={[440, 624]}
+              sizes="(min-width: 960px) 440px, 90vw"
+              loading="eager"
+              decoding="async"
+            />
           </figure>
         ) : (
           <div class="arco arte" aria-hidden="true">

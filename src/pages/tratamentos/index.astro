@@ -12,13 +12,14 @@ import Base from "../../layouts/Base.astro";
 
 const descricaoDaCategoria = {
   Rosto: "O Padrão Ouro do Rejuvenescimento: qualidade da pele, sustentação e contornos.",
-  Corpo: "Gordura localizada, definição muscular, contorno e firmeza, sem cirurgia.",
+  Corpo: "Gordura localizada, definição muscular, contorno, firmeza e estética íntima, sem cirurgia.",
+  Online: "Para quem está longe: consulta por vídeo e protocolo de cuidados para casa.",
 };
 ---
 
 <Base
   titulo={`Tratamentos para rosto e corpo em ${clinica.cidade} (${clinica.uf}) | Essenciale`}
-  descricao="Pele de Rainha, harmonização facial, lifting sem cirurgia, gordura localizada, definição muscular, contorno glúteo e flacidez corporal. Protocolos personalizados na Essenciale, em Balneário Camboriú (SC)."
+  descricao="Pele de Rainha, harmonização facial, lifting sem cirurgia, gordura localizada, definição muscular, Bumbum das Estrelas, flacidez, abdômen pós-gestação, estética íntima e consultoria online. Na Essenciale, em Balneário Camboriú (SC)."
 >
   <Topo interna />
   <main id="conteudo">
@@ -63,7 +64,7 @@ const descricaoDaCategoria = {
                 </span>
                 <div>
                   <h2>
-                    {c} <span class="conta">{porCategoria(c).length} tratamentos</span>
+                    {c} <span class="conta">{porCategoria(c).length} {porCategoria(c).length === 1 ? "tratamento" : "tratamentos"}</span>
                   </h2>
                   <p>{descricaoDaCategoria[c]}</p>
                 </div>

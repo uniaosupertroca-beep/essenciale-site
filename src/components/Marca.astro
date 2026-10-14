@@ -1,59 +1,28 @@
 ---
-// Logo da Essenciale redesenhado em HTML e CSS a partir do perfil do Instagram: "ESSENCIALE" em
-// serifa espaçada, numa moldura fina, com "estética & cosméticos" no traço de baixo.
-// Usa a cor do texto (currentColor), então funciona sobre fundo claro e escuro.
+// Logo oficial da Essenciale (vetor do site atual da clínica): rosé sobre fundo claro, branco sobre fundo escuro.
 interface Props {
-  /** Tamanho do nome, em pixels. */
-  tamanho?: number;
+  /** Altura do logo na tela, em pixels. */
+  altura?: number;
+  /** Versão branca, para fundo escuro. */
+  claro?: boolean;
 }
-const { tamanho = 22 } = Astro.props;
+const { altura = 44, claro = false } = Astro.props;
+const largura = Math.round(altura * (824.85 / 214.57));
 ---
 
-<span class="marca" style={`--t: ${tamanho}px`}>
-  <span class="nome">Essenciale</span>
-  <span class="base"><span class="sub">estética &amp; cosméticos</span></span>
-</span>
+<img
+  class="marca"
+  src={claro ? "/logo-essenciale-branco.svg" : "/logo-essenciale.svg"}
+  alt="Essenciale Estética e Cosméticos"
+  width={largura}
+  height={altura}
+  decoding="async"
+/>
 
 <style>
   .marca {
-    display: inline-grid;
-    justify-items: center;
-    padding: calc(var(--t) * 0.5) calc(var(--t) * 0.7) 0;
-    margin-bottom: calc(var(--t) * 0.3);
-    border: 1px solid currentColor;
-    border-bottom: 0;
-    line-height: 1;
-  }
-  .nome {
-    font-family: var(--serifa);
-    font-size: var(--t);
-    font-weight: 500;
-    letter-spacing: 0.32em;
-    margin-right: -0.32em;
-    text-transform: uppercase;
-  }
-  /* O traço de baixo da moldura é feito por duas linhas, uma de cada lado do subtítulo. */
-  .base {
-    justify-self: stretch;
-    display: flex;
-    align-items: center;
-    gap: calc(var(--t) * 0.35);
-    margin: calc(var(--t) * 0.3) calc(var(--t) * -0.7) 0;
-    translate: 0 50%;
-  }
-  .base::before,
-  .base::after {
-    content: "";
-    flex: 1;
-    min-width: calc(var(--t) * 0.4);
-    height: 1px;
-    background: currentColor;
-  }
-  .sub {
-    font-family: var(--fonte);
-    font-size: max(8px, calc(var(--t) * 0.36));
-    font-weight: 400;
-    letter-spacing: 0.14em;
-    white-space: nowrap;
+    display: block;
+    width: auto;
+    max-width: 100%;
   }
 </style>

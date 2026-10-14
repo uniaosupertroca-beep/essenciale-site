@@ -1,4 +1,4 @@
-// Tratamentos que a clínica divulga no Instagram (@essenciale), cada um com a sua página em
+// Tratamentos que a clínica divulga no Instagram (@essenciale) e no site atual, cada um com a sua página em
 // /tratamentos/<slug>/. Textos educativos e sem promessa de resultado: o que é, para que costuma
 // ser procurado, como é feito, cuidados e dúvidas. Sem marcas de aparelhos ou produtos, sem preço,
 // sem antes e depois e sem urgência. A clínica deve revisar cada página antes da divulgação.
@@ -7,7 +7,7 @@
 // "gordura localizada": "lipo" lembra lipoaspiração, que é cirurgia e é feita por médico.
 import type { NomeIcone } from "./icones.ts";
 
-export type Categoria = "Rosto" | "Corpo";
+export type Categoria = "Rosto" | "Corpo" | "Online";
 
 export interface Tratamento {
   slug: string;
@@ -15,6 +15,8 @@ export interface Tratamento {
   categoria: Categoria;
   /** Ícone do tratamento, nos cartões e no topo da página. */
   icone: NomeIcone;
+  /** Foto do topo da página (arquivo em src/assets/fotos/) e a sua descrição. */
+  foto: { arquivo: string; alt: string };
   /** Parte em itálico do título, depois do nome. */
   destaque: string;
   /** Uma frase: aparece nos cartões e na descrição para o Google. */
@@ -35,6 +37,7 @@ export const tratamentos: Tratamento[] = [
     nome: "Pele de Rainha",
     categoria: "Rosto",
     icone: "coroa",
+    foto: { arquivo: "trat-pele-de-rainha.jpg", alt: "Mulher madura tocando o rosto, com a pele iluminada" },
     destaque: "a base da beleza.",
     assunto: "do protocolo Pele de Rainha",
     resumo:
@@ -72,6 +75,7 @@ export const tratamentos: Tratamento[] = [
     nome: "Harmonização facial",
     categoria: "Rosto",
     icone: "rosto",
+    foto: { arquivo: "clinica-sala-de-procedimentos.jpg", alt: "Sala de procedimentos da Essenciale, com maca e bancada" },
     destaque: "com proporção e naturalidade.",
     assunto: "de harmonização facial",
     resumo:
@@ -109,6 +113,7 @@ export const tratamentos: Tratamento[] = [
     nome: "Lifting sem cirurgia",
     categoria: "Rosto",
     icone: "elevar",
+    foto: { arquivo: "clinica-cosmeticos.jpg", alt: "Espaço da Essenciale com espelho orgânico e a frase beauty is inside" },
     destaque: "firmeza e sustentação.",
     assunto: "de lifting sem cirurgia",
     resumo: "Técnicas e tecnologias não cirúrgicas para a firmeza e a sustentação do rosto, com efeito gradual e sem cortes.",
@@ -141,6 +146,7 @@ export const tratamentos: Tratamento[] = [
     nome: "Gordura localizada",
     categoria: "Corpo",
     icone: "medida",
+    foto: { arquivo: "clinica-sala-de-tecnologias.jpg", alt: "Sala de tecnologias da Essenciale, com maca e aparelho" },
     destaque: "sem cirurgia.",
     assunto: "para gordura localizada",
     resumo:
@@ -178,6 +184,7 @@ export const tratamentos: Tratamento[] = [
     nome: "Definição muscular",
     categoria: "Corpo",
     icone: "musculo",
+    foto: { arquivo: "trat-definicao-muscular.jpg", alt: "Aparelho de estimulação muscular posicionado sobre o abdômen" },
     destaque: "além do treino.",
     assunto: "de definição muscular",
     resumo: "Tecnologia de estimulação muscular para trabalhar tônus e definição de abdômen, glúteos, braços e pernas, sem cirurgia.",
@@ -214,11 +221,12 @@ export const tratamentos: Tratamento[] = [
     nome: "Contorno glúteo",
     categoria: "Corpo",
     icone: "contorno",
-    destaque: "curvas com naturalidade.",
-    assunto: "de contorno glúteo",
+    foto: { arquivo: "clinica-lounge.jpg", alt: "Lounge da Essenciale, com poltronas claras e luz quente" },
+    destaque: "o protocolo Bumbum das Estrelas.",
+    assunto: "do protocolo Bumbum das Estrelas",
     resumo: "Protocolo para firmeza, tônus e contorno dos glúteos, combinando técnicas para a musculatura e para a pele da região.",
     oQueE: [
-      "O contorno glúteo combina técnicas para a musculatura e para a qualidade da pele da região, com foco em firmeza, tônus e contorno. Não é só para o verão: curvas valorizadas aparecem também na saia, no jeans e na alfaiataria.",
+      "Bumbum das Estrelas é o protocolo de contorno glúteo da Essenciale. Ele combina técnicas para a musculatura e para a qualidade da pele da região, com foco em firmeza, tônus e contorno. Não é só para o verão: curvas valorizadas aparecem também na saia, no jeans e na alfaiataria.",
       "O plano é individual: depende da sua anatomia, do seu objetivo e da avaliação da pele e da musculatura.",
     ],
     indicacoes: ["Falta de firmeza", "Pouco tônus muscular", "Flacidez da pele", "Aspecto de celulite"],
@@ -250,6 +258,7 @@ export const tratamentos: Tratamento[] = [
     nome: "Flacidez corporal",
     categoria: "Corpo",
     icone: "ondas",
+    foto: { arquivo: "clinica-consultorio.jpg", alt: "Consultório de avaliação da Essenciale" },
     destaque: "firmeza para a pele.",
     assunto: "para flacidez",
     resumo: "Tecnologias que agem nas camadas profundas da pele para estimular colágeno e trabalhar a firmeza de abdômen, braços, coxas e glúteos.",
@@ -274,12 +283,143 @@ export const tratamentos: Tratamento[] = [
     duvidas: [
       { p: "Quando vejo diferença?", r: "O colágeno se forma aos poucos: a firmeza melhora ao longo das semanas, não de um dia para o outro." },
       { p: "Funciona junto com o tratamento de gordura localizada?", r: "Os dois podem ser combinados no mesmo plano, quando faz sentido para o seu caso. Isso é definido na avaliação." },
+      {
+        p: "Quem tem lipedema pode fazer?",
+        r: "A clínica usa uma tecnologia italiana indicada para flacidez, que pode entrar como cuidado complementar para quem convive com o lipedema, sempre junto do acompanhamento médico. Isso é avaliado na consulta.",
+      },
       { p: "Quem não pode fazer?", r: "Gestantes e pessoas com algumas condições de saúde. Esses pontos são conferidos na avaliação." },
+    ],
+  },
+  {
+    slug: "abdomen-pos-gestacao",
+    nome: "Abdômen pós-gestação",
+    categoria: "Corpo",
+    icone: "coracao",
+    foto: { arquivo: "clinica-espera.jpg", alt: "Recanto da Essenciale com poltrona e luz indireta" },
+    destaque: "tônus e firmeza para uma nova fase.",
+    assunto: "para o abdômen pós-gestação",
+    resumo:
+      "Protocolo para trabalhar o tônus muscular e a firmeza da pele do abdômen depois da gestação, com avaliação da diástase antes de começar.",
+    oQueE: [
+      "Depois da gestação, é comum o abdômen perder tônus e firmeza, e os músculos do centro da barriga podem se afastar: é a diástase. O protocolo da Essenciale combina tecnologias de estimulação muscular e de firmeza da pele para cuidar dessa região.",
+      "A diástase é avaliada antes de começar. Quando o afastamento é grande ou há hérnia, o caminho é o acompanhamento médico ou fisioterapêutico, e a clínica orienta você sobre isso.",
+    ],
+    indicacoes: ["Abdômen sem tônus depois da gestação", "Diástase leve", "Flacidez da pele do abdômen", "Retomada do cuidado com o corpo"],
+    etapas: [
+      { titulo: "Avaliação", texto: "Análise do abdômen, da diástase e do tempo desde o parto." },
+      { titulo: "Protocolo", texto: "Tecnologias, intensidade e número de sessões." },
+      { titulo: "Sessões", texto: "Feitas na clínica, sem cortes." },
+      { titulo: "Reavaliação", texto: "Para acompanhar a evolução e ajustar o protocolo." },
+    ],
+    ficha: [
+      { termo: "Técnica", texto: "Estimulação muscular e tecnologias para a firmeza da pele" },
+      { termo: "Quando começar", texto: "Depois da liberação médica do pós-parto" },
+      { termo: "Sessões", texto: "Definidas na avaliação" },
+      { termo: "Volta à rotina", texto: "Imediata" },
+    ],
+    cuidados: [
+      "Beber bastante água nos dias das sessões.",
+      "Manter as atividades físicas liberadas pelo seu médico.",
+      "Avisar a clínica se sentir dor ou desconforto fora do esperado.",
+    ],
+    duvidas: [
+      { p: "Quando posso começar depois do parto?", r: "Depois da liberação do seu médico. O momento certo é conversado na avaliação." },
+      {
+        p: "Serve para a diástase?",
+        r: "Em diástases leves, o fortalecimento da musculatura pode fazer parte do cuidado. Afastamentos maiores ou com hérnia precisam de avaliação médica.",
+      },
+      { p: "Posso fazer amamentando?", r: "Depende da tecnologia. Isso é avaliado na consulta, junto com as orientações do seu médico." },
+    ],
+  },
+  {
+    slug: "estetica-intima-feminina",
+    nome: "Estética íntima feminina",
+    categoria: "Corpo",
+    icone: "flor",
+    foto: { arquivo: "trat-estetica-intima.jpg", alt: "Mãos segurando uma orquídea branca à frente do corpo" },
+    destaque: "cuidado com discrição.",
+    assunto: "de estética íntima feminina",
+    resumo:
+      "Cuidados estéticos da região íntima e tecnologia para fortalecer a musculatura do assoalho pélvico, com avaliação reservada.",
+    oQueE: [
+      "A estética íntima feminina reúne cuidados com a aparência e o conforto da região íntima e tecnologias que trabalham a musculatura do assoalho pélvico.",
+      "Queixas como a perda de urina aos esforços são avaliadas com atenção: algumas pedem investigação médica ou fisioterapia, e a clínica orienta você sobre o melhor caminho.",
+    ],
+    indicacoes: [
+      "Aparência e conforto da região íntima",
+      "Fortalecimento do assoalho pélvico",
+      "Perda leve de urina aos esforços, depois de avaliação",
+      "Mudanças depois da gestação ou da menopausa",
+    ],
+    etapas: [
+      { titulo: "Avaliação reservada", texto: "Conversa em sala reservada sobre as suas queixas e o seu histórico de saúde." },
+      { titulo: "Plano", texto: "Técnicas, tecnologias e número de sessões." },
+      { titulo: "Sessões", texto: "Feitas na clínica, com toda a discrição." },
+      { titulo: "Acompanhamento", texto: "Reavaliações para acompanhar a evolução." },
+    ],
+    ficha: [
+      { termo: "Técnica", texto: "Tecnologias e cuidados definidos na avaliação" },
+      { termo: "Atendimento", texto: "Reservado, com hora marcada" },
+      { termo: "Sessões", texto: "Definidas na avaliação" },
+      { termo: "Volta à rotina", texto: "Geralmente no mesmo dia" },
+    ],
+    cuidados: [
+      "Seguir as orientações de higiene e de relações sexuais passadas na clínica.",
+      "Avisar a clínica se notar desconforto, ardor ou qualquer sinal diferente do esperado.",
+      "Manter o acompanhamento ginecológico de rotina.",
+    ],
+    duvidas: [
+      { p: "Vou ficar constrangida?", r: "A avaliação é feita em sala reservada, com hora marcada e toda a discrição. Você conta só o que se sentir à vontade para contar." },
+      {
+        p: "Trata a perda de urina?",
+        r: "O fortalecimento do assoalho pélvico pode ajudar em perdas leves, depois de avaliação. Casos que precisam de investigação médica são orientados.",
+      },
+      { p: "Quem não pode fazer?", r: "Gestantes, pessoas com infecção ativa na região e alguns outros casos, conferidos na avaliação." },
+    ],
+  },
+  {
+    slug: "consultoria-online",
+    nome: "Consultoria online",
+    categoria: "Online",
+    icone: "video",
+    foto: { arquivo: "trat-consultoria-online.jpg", alt: "Mulher sorrindo em frente ao notebook, durante uma consulta por vídeo" },
+    destaque: "para quem está longe.",
+    assunto: "da consultoria online",
+    resumo: "Para quem não está em Santa Catarina: uma consulta por vídeo que termina com um protocolo de cuidados com a pele para fazer em casa.",
+    oQueE: [
+      "Se você não mora em Balneário Camboriú ou em Santa Catarina, pode ter o olhar da Essenciale à distância. A consultoria online é uma conversa por vídeo para entender a sua pele, a sua rotina e o que você deseja.",
+      "Dela sai um protocolo de skincare para você seguir em casa, com orientação sobre cada etapa. Procedimentos feitos na clínica continuam precisando de avaliação presencial.",
+    ],
+    indicacoes: ["Quem mora fora de Santa Catarina", "Rotina de cuidados com a pele", "Manutenção entre as visitas à clínica", "Dúvidas sobre produtos e ordem de uso"],
+    etapas: [
+      { titulo: "Agendamento", texto: "Pelo WhatsApp, no horário que for melhor para você." },
+      { titulo: "Consulta por vídeo", texto: "Conversa sobre a sua pele, a sua rotina e os produtos que você já usa." },
+      { titulo: "Protocolo de skincare", texto: "Os cuidados para casa, com a ordem e o modo de usar cada produto." },
+      { titulo: "Acompanhamento", texto: "Retorno para ajustar o protocolo conforme a sua pele responde." },
+    ],
+    ficha: [
+      { termo: "Formato", texto: "Por vídeo, de onde você estiver" },
+      { termo: "Entrega", texto: "Protocolo de skincare para fazer em casa" },
+      { termo: "Ideal para", texto: "Quem está longe da clínica" },
+      { termo: "Procedimentos", texto: "Feitos só na clínica, com avaliação presencial" },
+    ],
+    cuidados: [
+      "Seguir a ordem dos produtos indicada no protocolo.",
+      "Usar protetor solar todos os dias.",
+      "Avisar a clínica se a pele reagir de forma diferente do esperado.",
+    ],
+    duvidas: [
+      { p: "Preciso morar fora de Santa Catarina?", r: "Não. A consultoria foi pensada para quem está longe, mas qualquer pessoa pode agendar." },
+      { p: "Como recebo o protocolo?", r: "Ao fim da consulta, com a ordem e o modo de usar cada produto." },
+      {
+        p: "Substitui a avaliação presencial?",
+        r: "Para os cuidados em casa, sim. Para os procedimentos feitos na clínica, a avaliação presencial continua necessária.",
+      },
     ],
   },
 ];
 
-export const categorias: Categoria[] = ["Rosto", "Corpo"];
+export const categorias: Categoria[] = ["Rosto", "Corpo", "Online"];
 
 export const porCategoria = (c: Categoria) => tratamentos.filter((t) => t.categoria === c);
 
@@ -289,7 +429,7 @@ export const porSlug = (slug: string) => {
   return t;
 };
 
-export const iconeDaCategoria: Record<Categoria, NomeIcone> = { Rosto: "rosto", Corpo: "contorno" };
+export const iconeDaCategoria: Record<Categoria, NomeIcone> = { Rosto: "rosto", Corpo: "contorno", Online: "video" };
 
 // Ícones da ficha "Em resumo" e das etapas, escolhidos pelo texto. O que não tiver
 // correspondência usa o ícone do próprio tratamento (por exemplo, "Técnica" e "Sessões" de aplicação).
@@ -301,11 +441,18 @@ const ICONES_DA_FICHA: [RegExp, NomeIcone][] = [
   [/sess[oõ]es/i, "calendario"],
   [/sensa[cç][aã]o/i, "termometro"],
   [/foco/i, "brilho"],
+  [/quando/i, "relogio"],
+  [/formato/i, "video"],
+  [/entrega/i, "prancheta"],
+  [/ideal/i, "local"],
+  [/procedimentos/i, "escudo"],
+  [/atendimento/i, "cadeado"],
   [/t[eé]cnicas/i, "camadas"],
 ];
 
 const ICONES_DA_ETAPA: [RegExp, NomeIcone][] = [
-  [/whatsapp/i, "conversa"],
+  [/whatsapp|agendamento/i, "conversa"],
+  [/v[ií]deo/i, "video"],
   [/reavalia|retorno|acompanhamento/i, "calendario"],
   [/an[aá]lise|avalia/i, "prancheta"],
   [/plano|protocolo/i, "lista"],
